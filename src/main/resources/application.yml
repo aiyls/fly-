@@ -1,0 +1,33 @@
+spring:
+  redis:
+    database: 0
+    host: 42.193.54.53
+    port: 6379
+    password: aiyls
+    timeout: 6000
+  datasource:
+    url: jdbc:mysql://42.193.54.53:3306/fly?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: aiyls
+    hikari:
+      maximum-pool-size: 5
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+# mybatis 配置
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      table-underline: true
+      id-type: uuid
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true

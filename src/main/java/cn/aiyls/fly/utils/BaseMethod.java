@@ -49,6 +49,7 @@ public class BaseMethod {
         }else {
             return new Result<Object>(ReturnCodes.permissionDenied);
         }
+        
     }
 
     public static Boolean isSuperAdminJust(RedisUtil redisUtil,String token) {

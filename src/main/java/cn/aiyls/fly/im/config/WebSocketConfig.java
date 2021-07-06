@@ -1,9 +1,12 @@
 package cn.aiyls.fly.im.config;
 
+import cn.aiyls.fly.im.service.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 
 /**
  * @Author: aiyls
@@ -25,5 +28,10 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(myHandler, "/open/websocket").addInterceptors(myInterceptor).setAllowedOrigins("*");
+    }
+
+    @Bean
+    public SessionManager sessionManager(){
+        return new LimitStrategy().buildSessionManager(LimitStrategy.LimitStrategyEnum.NO_LIMIT);
     }
 }

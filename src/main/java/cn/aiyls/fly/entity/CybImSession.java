@@ -1,5 +1,6 @@
 package cn.aiyls.fly.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -12,6 +13,7 @@ import java.util.Date;
  * @Desc:
  */
 @Data
+@TableName("cyb_im_session")
 public class CybImSession {
     private Long id;
     //    @ApiModelProperty(value = "用户id")

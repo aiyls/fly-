@@ -1,6 +1,7 @@
 package cn.aiyls.fly.im.controller;
 
 
+import cn.aiyls.fly.aop.NoEmptyStr;
 import cn.aiyls.fly.utils.JwtUtils;
 import cn.aiyls.fly.utils.Result;
 import cn.aiyls.fly.im.service.ICybImSessionService;
@@ -58,6 +59,7 @@ public class CybImSessionController {
         return Result.ok(resultList);
     }
 
+    @NoEmptyStr(value = "userRole")
     @GetMapping("/getAvatarSessionList")
     @ApiOperation(value = "获取当前用户的会话列表（带头像）")
     public Result<List<AvatarSessionVO>> getAvatarSessionList(@ApiParam("用户角色：用户1；服务提供者2") @RequestParam("userRole") String userRole) {

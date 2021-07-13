@@ -1,3 +1,7 @@
+server:
+  port: 8007
+  servlet:
+    context-path: /api/iiben
 spring:
   redis:
     database: 0

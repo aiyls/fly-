@@ -63,4 +63,18 @@ public class Result<T> {
         this.tips=returnCodes.getMessage();
         this.data=data;
     }
+
+    public static Result ok() {
+        Result result = new Result(200, "请求成功");
+        return result;
+    }
+
+    public static Result ok(Object data) {
+        Result result = new Result(200, "请求成功", data);
+        return result;
+    }
+    public static Result failure(Object data) {
+        Result result = new Result(200, "请求成功", data);
+        return result;
+    }
 }

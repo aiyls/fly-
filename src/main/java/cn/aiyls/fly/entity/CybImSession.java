@@ -13,7 +13,7 @@ import java.util.Date;
  */
 @Data
 public class CybImSession {
-
+    private Long id;
     //    @ApiModelProperty(value = "用户id")
     private Long userId;
 
@@ -51,4 +51,128 @@ public class CybImSession {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
+
+
+    private String uuid;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+
+    public Long getOppositeId() {
+        return oppositeId;
+    }
+
+    public void setOppositeId(Long oppositeId) {
+        this.oppositeId = oppositeId;
+    }
+
+    public String getOppositeName() {
+        return oppositeName;
+    }
+
+    public void setOppositeName(String oppositeName) {
+        this.oppositeName = oppositeName;
+    }
+
+    public String getOppositePhone() {
+        return oppositePhone;
+    }
+
+    public void setOppositePhone(String oppositePhone) {
+        this.oppositePhone = oppositePhone;
+    }
+
+    public LocalDateTime getOperatingTime() {
+        return operatingTime;
+    }
+
+    public void setOperatingTime(LocalDateTime operatingTime) {
+        this.operatingTime = operatingTime;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
+    }
+
+    public String getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(String deleteFlag) {
+        this.deleteFlag = deleteFlag;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getTopFlag() {
+        return topFlag;
+    }
+
+    public void setTopFlag(String topFlag) {
+        this.topFlag = topFlag;
+    }
+
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
+    }
 }

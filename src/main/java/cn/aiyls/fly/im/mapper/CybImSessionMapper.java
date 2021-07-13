@@ -1,22 +1,23 @@
 package cn.aiyls.fly.im.mapper;
 
 import cn.aiyls.fly.entity.CybImSession;
-import cn.aiyls.fly.im.VO.CheckSessionVO;
-import cn.aiyls.fly.im.VO.EditSessionVO;
-import cn.aiyls.fly.im.VO.SessionVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import cn.aiyls.fly.im.vo.CheckSessionVO;
+import cn.aiyls.fly.im.vo.EditSessionVO;
+import cn.aiyls.fly.im.vo.SessionVO;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
- * @Author: aiyls
- * @CreateTime: 2021/7/6
- * @Desc:
+ * <p>
+ * IM会话表 Mapper 接口
+ * </p>
+ *
+ * @author gu.yuanlin@foundbyte.com
+ * @since 2020-12-24
  */
 @Mapper
-@Component
 public interface CybImSessionMapper extends BaseMapper<CybImSession> {
 
     /**
@@ -50,4 +51,5 @@ public interface CybImSessionMapper extends BaseMapper<CybImSession> {
     void changeTopSession(EditSessionVO editSessionVO);
 
     Integer insertSessionAndReturnId(CybImSession session);
+
 }

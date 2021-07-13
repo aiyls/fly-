@@ -1,68 +1,67 @@
-package cn.aiyls.fly.im.VO;
+package cn.aiyls.fly.im.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
-/**
- * @Author: aiyls
- * @CreateTime: 2021/7/6
- * @Desc:
- */
 @Data
+@ApiModel(value = "会话VO")
 public class SessionVO {
 
-//    @ApiModelProperty(value = "会话编号")
+    @ApiModelProperty(value = "会话编号")
     private Long id;
 
-//    @ApiModelProperty(value = "订单编号")
+    @ApiModelProperty(value = "订单编号")
     private String orderId;
 
-//    @ApiModelProperty(value = "订单类型：2发货找车；3仓库租赁")
+    @ApiModelProperty(value = "订单类型：2发货找车；3仓库租赁")
     private String orderType;
 
-//    @ApiModelProperty(value = "用户id")
+    @ApiModelProperty(value = "用户id")
     private Long userId;
 
-//    @ApiModelProperty(value = "用户名字，可能是手机号，也可能是实名")
+    @ApiModelProperty(value = "用户名字，可能是手机号，也可能是实名")
     private String userName;
 
-//    @ApiModelProperty(value = "用户号码")
+    @ApiModelProperty(value = "用户号码")
     private String userPhone;
 
-//    @ApiModelProperty(value = "对方id")
+    @ApiModelProperty(value = "对方id")
     private Long oppositeId;
 
-//    @ApiModelProperty(value = "对方名字，可能是手机号，也可能是实名")
+    @ApiModelProperty(value = "对方名字，可能是手机号，也可能是实名")
     private String oppositeName;
 
-//    @ApiModelProperty(value = "对方号码")
+    @ApiModelProperty(value = "对方号码")
     private String oppositePhone;
 
-//    @ApiModelProperty(value = "一次会话会有两条数据库记录，关联这两条记录")
+    @ApiModelProperty(value = "一次会话会有两条数据库记录，关联这两条记录")
     private String uuid;
 
-//    @ApiModelProperty(value = "置顶标识")
+    @ApiModelProperty(value = "置顶标识")
     private String topFlag;
 
-//    @ApiModelProperty(value = "操作时间，用于排序")
+    @ApiModelProperty(value = "操作时间，用于排序")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime operatingTime;
 
-//    @ApiModelProperty(value = "最后一条消息发送的时间")
+    @ApiModelProperty(value = "最后一条消息发送的时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastTime;
 
-//    @ApiModelProperty(value = "最后一条消息的内容")
+    @ApiModelProperty(value = "最后一条消息的内容")
     private String lastContent;
 
-//    @ApiModelProperty(value = "最后一条消息的自增id")/
+    @ApiModelProperty(value = "最后一条消息的自增id")
     private Long lastId;
 
-//    @ApiModelProperty(value = "最后一条消息的消息类型")
+    @ApiModelProperty(value = "最后一条消息的消息类型")
     private String msgType;
 
-//    @ApiModelProperty(value = "未读消息数量")
+    @ApiModelProperty(value = "未读消息数量")
     private Integer unreadCount;
+
 }

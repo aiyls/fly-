@@ -1,17 +1,21 @@
 package cn.aiyls.fly.im.service;
 
 import cn.aiyls.fly.entity.CybImSession;
-import cn.aiyls.fly.im.VO.*;
 import com.baomidou.mybatisplus.extension.service.IService;
+import cn.aiyls.fly.entity.CybImSession;
+import cn.aiyls.fly.im.vo.*;
 
 import java.util.List;
 
 /**
- * @Author: aiyls
- * @CreateTime: 2021/7/6
- * @Desc:
+ * <p>
+ * IM会话表 服务类
+ * </p>
+ *
+ * @author gu.yuanlin@foundbyte.com
+ * @since 2020-12-24
  */
-public interface ICybImSessionService {
+public interface ICybImSessionService extends IService<CybImSession> {
 
     /**
      * 获取用户的会话列表
@@ -52,4 +56,5 @@ public interface ICybImSessionService {
      * 删除会话
      */
     void deleteSession(Long id);
+
 }

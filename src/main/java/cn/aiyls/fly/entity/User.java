@@ -4,65 +4,415 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
- * @Author: aiyls
+ * @Author: aiylsTableName
  * @CreateTime: 2021/6/6
  * @Desc:
  */
 @Data
-@TableName("t_user")
+@TableName("t_fly_user")
 public class User implements Serializable {
     public static final long serialVersionUID = 1L;
 
     @TableId(type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
+    /**
+     * 用户名
+     */
     private String userName;
 
+    /**
+     * 密码
+     */
     private String password;
 
     private String slat;
 
+    /**
+     * 联系方式
+     */
     private String phone;
 
+    /**
+     * 邮箱
+     */
     private String email;
 
+    /**
+     * 性别
+     */
     private Integer sex;
 
-    private Date birthday;
+    /**
+     * 生日
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime birthday;
 
     private String brief;
 
+    /**
+     * 头像
+     */
     private String icon;
 
+    /**
+     * 状态
+     */
     @TableLogic
     private Integer status;
 
+    /**
+     * 备注
+     */
     private String remake;
 
-    private Date createTime;
+    /**
+     * 创建时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
 
-    private Date updateTime;
+    /**
+     * 更新时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
 
+    /**
+     * 昵称
+     */
+    private String nickname;
 
-    public User() {
+    /**
+     * 身份证号码
+     */
+    private String idcard;
 
+    /**
+     * 身份证正面
+     */
+    private String frontImage;
+
+    /**
+     * 身份证反面
+     */
+    private String backImage;
+
+    /**
+     * 等级
+     */
+    private Integer grade;
+
+    /**
+     * 企业认证 0：未认证，1：认证成功，2：认证中，3：认证失败
+     */
+    private Integer corpAuth;
+
+    /**
+     * 身份认证 0：未认证，1：认证成功，2：认证中，3：认证失败
+     */
+    private Integer idcardAuth;
+
+    /**
+     * 消息数量
+     */
+    private Integer messageNum;
+
+    /**
+     * 动态数量
+     */
+    private Integer dynamicNum;
+
+    /**
+     * 访客数量
+     */
+    private Integer visitor;
+
+    /**
+     * 所在城市
+     */
+    private String address;
+
+    /**
+     * 真实姓名
+     */
+    private String realname;
+
+    public Integer getId() {
+        return this.id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    public User(User user) {
-        this.id = user.getId();
-        this.userName = user.getUserName();
-        this.phone = user.getPhone();
-        this.email = user.getEmail();
-        this.sex = user.getSex();
-        this.birthday = user.getBirthday();
-        this.brief = user.getBrief();
-        this.icon = user.getIcon();
+    public String getUserName() {
+        return this.userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSlat() {
+        return this.slat;
+    }
+
+    public void setSlat(String slat) {
+        this.slat = slat;
+    }
+
+    public String getPhone() {
+        return this.phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Integer getSex() {
+        return this.sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public LocalDateTime getBirthday() {
+        return this.birthday;
+    }
+
+    public void setBirthday(LocalDateTime birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getBrief() {
+        return this.brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
+    }
+
+    public String getIcon() {
+        return this.icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public Integer getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getRemake() {
+        return this.remake;
+    }
+
+    public void setRemake(String remake) {
+        this.remake = remake;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return this.createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public LocalDateTime getUpdateTime() {
+        return this.updateTime;
+    }
+
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getNickname() {
+        return this.nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getIdcard() {
+        return this.idcard;
+    }
+
+    public void setIdcard(String idcard) {
+        this.idcard = idcard;
+    }
+
+    public String getFrontImage() {
+        return this.frontImage;
+    }
+
+    public void setFrontImage(String frontImage) {
+        this.frontImage = frontImage;
+    }
+
+    public String getBackImage() {
+        return this.backImage;
+    }
+
+    public void setBackImage(String backImage) {
+        this.backImage = backImage;
+    }
+
+    public Integer getGrade() {
+        return this.grade;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
+    }
+
+    public Integer getCorpAuth() {
+        return this.corpAuth;
+    }
+
+    public void setCorpAuth(Integer corpAuth) {
+        this.corpAuth = corpAuth;
+    }
+
+    public Integer getIdcardAuth() {
+        return this.idcardAuth;
+    }
+
+    public void setIdcardAuth(Integer idcardAuth) {
+        this.idcardAuth = idcardAuth;
+    }
+
+    public Integer getMessageNum() {
+        return this.messageNum;
+    }
+
+    public void setMessageNum(Integer messageNum) {
+        this.messageNum = messageNum;
+    }
+
+    public Integer getDynamicNum() {
+        return this.dynamicNum;
+    }
+
+    public void setDynamicNum(Integer dynamicNum) {
+        this.dynamicNum = dynamicNum;
+    }
+
+    public Integer getVisitor() {
+        return this.visitor;
+    }
+
+    public void setVisitor(Integer visitor) {
+        this.visitor = visitor;
+    }
+
+    public String getAddress() {
+        return this.address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getRealname() {
+        return this.realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id='" + id + '\'' +
+                "userName='" + userName + '\'' +
+                "password='" + password + '\'' +
+                "slat='" + slat + '\'' +
+                "phone='" + phone + '\'' +
+                "email='" + email + '\'' +
+                "sex='" + sex + '\'' +
+                "birthday='" + birthday + '\'' +
+                "brief='" + brief + '\'' +
+                "icon='" + icon + '\'' +
+                "status='" + status + '\'' +
+                "remake='" + remake + '\'' +
+                "createTime='" + createTime + '\'' +
+                "updateTime='" + updateTime + '\'' +
+                "nickname='" + nickname + '\'' +
+                "idcard='" + idcard + '\'' +
+                "frontImage='" + frontImage + '\'' +
+                "backImage='" + backImage + '\'' +
+                "grade='" + grade + '\'' +
+                "corpAuth='" + corpAuth + '\'' +
+                "idcardAuth='" + idcardAuth + '\'' +
+                "messageNum='" + messageNum + '\'' +
+                "dynamicNum='" + dynamicNum + '\'' +
+                "visitor='" + visitor + '\'' +
+                "address='" + address + '\'' +
+                "realname='" + realname + '\'' +
+                '}';
+    }
+
+    public User(User model) {
+        this.id = model.id;
+        this.userName = model.userName;
+        this.password = model.password;
+        this.slat = model.slat;
+        this.phone = model.phone;
+        this.email = model.email;
+        this.sex = model.sex;
+        this.birthday = model.birthday;
+        this.brief = model.brief;
+        this.icon = model.icon;
+        this.status = model.status;
+        this.remake = model.remake;
+        this.createTime = model.createTime;
+        this.updateTime = model.updateTime;
+        this.nickname = model.nickname;
+        this.idcard = model.idcard;
+        this.frontImage = model.frontImage;
+        this.backImage = model.backImage;
+        this.grade = model.grade;
+        this.corpAuth = model.corpAuth;
+        this.idcardAuth = model.idcardAuth;
+        this.messageNum = model.messageNum;
+        this.dynamicNum = model.dynamicNum;
+        this.visitor = model.visitor;
+        this.address = model.address;
+        this.realname = model.realname;
     }
 }

@@ -1,5 +1,7 @@
 package cn.aiyls.fly.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -12,8 +14,9 @@ import java.time.LocalDateTime;
  * @Desc:
  */
 @Data
-@TableName("cyb_im_message")
+@TableName("t_fly_im_message")
 public class CybImMessage {
+    @TableId(type = IdType.AUTO)
     private Long id;
     private Long receiverId;
     private String msgType;

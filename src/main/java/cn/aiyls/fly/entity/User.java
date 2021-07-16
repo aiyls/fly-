@@ -22,7 +22,7 @@ public class User implements Serializable {
     public static final long serialVersionUID = 1L;
 
     @TableId(type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 用户名
@@ -147,11 +147,11 @@ public class User implements Serializable {
      */
     private String realname;
 
-    public Integer getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -385,6 +385,10 @@ public class User implements Serializable {
                 "address='" + address + '\'' +
                 "realname='" + realname + '\'' +
                 '}';
+    }
+
+    public User() {
+
     }
 
     public User(User model) {

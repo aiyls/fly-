@@ -27,7 +27,7 @@ public class TFlyDynamic  implements Serializable {
 	/**
 	 * 用户ID
 	 */
-	private Integer userId;
+	private Long userId;
 
 	/**
 	 * 用户昵称
@@ -99,11 +99,11 @@ public class TFlyDynamic  implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getUserId() {
+	public Long getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
@@ -222,6 +222,8 @@ public class TFlyDynamic  implements Serializable {
 					"status='" + status + '\'' +
 				'}';
 	}
+
+	public TFlyDynamic() {}
 
 	public TFlyDynamic(TFlyDynamic model) {
 		this.id = model.id;

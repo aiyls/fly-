@@ -23,7 +23,7 @@ public class TFlyGoods  implements Serializable {
 	private static final long serialVersionUID =  9185857431366506867L;
 
    @TableId(type = IdType.AUTO)
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 商品名称
@@ -112,11 +112,11 @@ public class TFlyGoods  implements Serializable {
 	 */
 	private Integer status;
 
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -279,6 +279,8 @@ public class TFlyGoods  implements Serializable {
 					"status='" + status + '\'' +
 				'}';
 	}
+
+	public TFlyGoods() {}
 
 	public TFlyGoods(TFlyGoods model) {
 		this.id = model.id;

@@ -22,22 +22,22 @@ public class TFlyComment  implements Serializable {
 	private static final long serialVersionUID =  8821851274766961954L;
 
    @TableId(type = IdType.AUTO)
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 父层评论ID，为空表示评论动态
 	 */
-	private Integer parentId;
+	private Long parentId;
 
 	/**
 	 * 动态ID
 	 */
-	private Integer dynamicId;
+	private Long dynamicId;
 
 	/**
 	 * 被评论的用户id
 	 */
-	private Integer toUserId;
+	private Long toUserId;
 
 	/**
 	 * 被评论用户的头像
@@ -57,7 +57,7 @@ public class TFlyComment  implements Serializable {
 	/**
 	 * 评论人的用户ID
 	 */
-	private Integer fromUserId;
+	private Long fromUserId;
 
 	/**
 	 * 评论人的用户头像
@@ -91,35 +91,35 @@ public class TFlyComment  implements Serializable {
 	 */
 	private Integer praiseNum;
 
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getParentId() {
+	public Long getParentId() {
 		return this.parentId;
 	}
 
-	public void setParentId(Integer parentId) {
+	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
 
-	public Integer getDynamicId() {
+	public Long getDynamicId() {
 		return this.dynamicId;
 	}
 
-	public void setDynamicId(Integer dynamicId) {
+	public void setDynamicId(Long dynamicId) {
 		this.dynamicId = dynamicId;
 	}
 
-	public Integer getToUserId() {
+	public Long getToUserId() {
 		return this.toUserId;
 	}
 
-	public void setToUserId(Integer toUserId) {
+	public void setToUserId(Long toUserId) {
 		this.toUserId = toUserId;
 	}
 
@@ -147,11 +147,11 @@ public class TFlyComment  implements Serializable {
 		this.commentText = commentText;
 	}
 
-	public Integer getFromUserId() {
+	public Long getFromUserId() {
 		return this.fromUserId;
 	}
 
-	public void setFromUserId(Integer fromUserId) {
+	public void setFromUserId(Long fromUserId) {
 		this.fromUserId = fromUserId;
 	}
 
@@ -222,6 +222,8 @@ public class TFlyComment  implements Serializable {
 					"praiseNum='" + praiseNum + '\'' +
 				'}';
 	}
+
+	public TFlyComment() {}
 
 	public TFlyComment(TFlyComment model) {
 		this.id = model.id;

@@ -180,4 +180,6 @@ public class CybImSession {
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
     }
+
+    public CybImSession() {}
 }

@@ -130,6 +130,8 @@ public class UndoLog  implements Serializable {
 				'}';
 	}
 
+	public UndoLog() {}
+
 	public UndoLog(UndoLog model) {
 		this.id = model.id;
 		this.branchId = model.branchId;

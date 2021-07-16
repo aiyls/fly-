@@ -23,7 +23,7 @@ public class TFlyCompany  implements Serializable {
 	private static final long serialVersionUID =  4836472088868572645L;
 
    @TableId(type = IdType.AUTO)
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 公司名称
@@ -75,7 +75,7 @@ public class TFlyCompany  implements Serializable {
 	/**
 	 * 用户ID
 	 */
-	private Integer userId;
+	private Long userId;
 
 	/**
 	 * 经度
@@ -107,11 +107,11 @@ public class TFlyCompany  implements Serializable {
 	 */
 	private String street;
 
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -187,11 +187,11 @@ public class TFlyCompany  implements Serializable {
 		this.updateTime = updateTime;
 	}
 
-	public Integer getUserId() {
+	public Long getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
@@ -265,6 +265,8 @@ public class TFlyCompany  implements Serializable {
 					"street='" + street + '\'' +
 				'}';
 	}
+
+	public TFlyCompany() {}
 
 	public TFlyCompany(TFlyCompany model) {
 		this.id = model.id;

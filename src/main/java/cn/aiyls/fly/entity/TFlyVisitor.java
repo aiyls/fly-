@@ -22,7 +22,7 @@ public class TFlyVisitor  implements Serializable {
 	private static final long serialVersionUID =  3033838837776498642L;
 
    @TableId(type = IdType.AUTO)
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 头像
@@ -37,7 +37,7 @@ public class TFlyVisitor  implements Serializable {
 	/**
 	 * 用户ID
 	 */
-	private Integer userId;
+	private Long userId;
 
 	/**
 	 * 创建时间
@@ -51,11 +51,11 @@ public class TFlyVisitor  implements Serializable {
    	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime createDate;
 
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -75,11 +75,11 @@ public class TFlyVisitor  implements Serializable {
 		this.username = username;
 	}
 
-	public Integer getUserId() {
+	public Long getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
@@ -110,6 +110,8 @@ public class TFlyVisitor  implements Serializable {
 					"createDate='" + createDate + '\'' +
 				'}';
 	}
+
+	public TFlyVisitor() {}
 
 	public TFlyVisitor(TFlyVisitor model) {
 		this.id = model.id;

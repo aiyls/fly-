@@ -99,4 +99,6 @@ public class CybImMessage {
     }
 
     private Long senderId;
+
+    public CybImMessage() {}
 }

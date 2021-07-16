@@ -25,7 +25,7 @@ public class TFlyImSessionTemp  implements Serializable {
 	 * 主键
 	 */
    @TableId(type = IdType.AUTO)
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 订单id
@@ -40,12 +40,12 @@ public class TFlyImSessionTemp  implements Serializable {
 	/**
 	 * 用户id
 	 */
-	private Integer userId;
+	private Long userId;
 
 	/**
 	 * 对方id
 	 */
-	private Integer oppositeId;
+	private Long oppositeId;
 
 	/**
 	 * 是否删除：0.否；1.是
@@ -74,11 +74,11 @@ public class TFlyImSessionTemp  implements Serializable {
    	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime updateTime;
 
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -98,19 +98,19 @@ public class TFlyImSessionTemp  implements Serializable {
 		this.orderType = orderType;
 	}
 
-	public Integer getUserId() {
+	public Long getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
-	public Integer getOppositeId() {
+	public Long getOppositeId() {
 		return this.oppositeId;
 	}
 
-	public void setOppositeId(Integer oppositeId) {
+	public void setOppositeId(Long oppositeId) {
 		this.oppositeId = oppositeId;
 	}
 
@@ -169,6 +169,8 @@ public class TFlyImSessionTemp  implements Serializable {
 					"updateTime='" + updateTime + '\'' +
 				'}';
 	}
+
+	public TFlyImSessionTemp() {}
 
 	public TFlyImSessionTemp(TFlyImSessionTemp model) {
 		this.id = model.id;

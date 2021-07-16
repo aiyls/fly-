@@ -87,7 +87,7 @@ public class UserService {
     public Object login(JSONObject param){
 
         //  验证用户是否存在
-        User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getPhone, param.getString("phone")));
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUserName, param.getString("user_name")));
         if (ObjectUtils.isEmpty(user)){
             return new Result<Object>(ReturnCodes.usernameDoesNotExist);
         }

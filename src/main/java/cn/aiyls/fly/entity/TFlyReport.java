@@ -22,7 +22,7 @@ public class TFlyReport  implements Serializable {
 	private static final long serialVersionUID =  2113512920672890835L;
 
    @TableId(type = IdType.AUTO)
-	private Integer id;
+	private Long id;
 
 	/**
 	 * 举报理由
@@ -37,7 +37,7 @@ public class TFlyReport  implements Serializable {
 	/**
 	 * 用户ID
 	 */
-	private Integer userId;
+	private Long userId;
 
 	/**
 	 * 用户账号
@@ -66,11 +66,11 @@ public class TFlyReport  implements Serializable {
    	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime updateTime;
 
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -90,11 +90,11 @@ public class TFlyReport  implements Serializable {
 		this.enclosure = enclosure;
 	}
 
-	public Integer getUserId() {
+	public Long getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
@@ -152,6 +152,8 @@ public class TFlyReport  implements Serializable {
 					"updateTime='" + updateTime + '\'' +
 				'}';
 	}
+
+	public TFlyReport() {}
 
 	public TFlyReport(TFlyReport model) {
 		this.id = model.id;

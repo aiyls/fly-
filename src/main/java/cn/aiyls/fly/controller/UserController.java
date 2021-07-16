@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * @Desc:
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/base/open/user")
 public class UserController {
 
     private final UserService userService;

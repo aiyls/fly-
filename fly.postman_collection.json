@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "ded9e843-afd6-4f55-b563-505627f0a758",
+		"name": "fly",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://10.10.15.158:8007/api/iiben/base/auth/goods/createGoods",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\":\"3\",\n    \"goodsName\":\"好喝得不行好喝得不行好喝得不行\",\n    \"goodsPrice\":256.99,\n    \"goodsStock\":100,\n    \"goodsYear\":\"2016\",\n    \"goodsAddress\":\"贵州省贵阳市观山湖区天一国际广场11栋12楼1205室\",\n    \"enclosure\": \"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1309%2F25%2Fc49%2F26316176_26316176_1380092693834_mthumb.jpg&refer=http%3A%2F%2Fimg.pconline.com.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1629452792&t=d80c6ba7e7c014b9c3a32fbab26bd1df\"\n}"
+				},
+				"url": {
+					"raw": "http://10.10.15.158:8007/api/iiben/base/auth/goods/createGoods",
+					"protocol": "http",
+					"host": [
+						"10",
+						"10",
+						"15",
+						"158"
+					],
+					"port": "8007",
+					"path": [
+						"api",
+						"iiben",
+						"base",
+						"auth",
+						"goods",
+						"createGoods"
+					],
+					"query": [
+						{
+							"key": "goodsName",
+							"value": "好喝的不行",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://10.10.15.158:8007/api/iiben/base/open/user/register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"password\":\"123456\",\"userName\":\"18275317961\"}"
+				},
+				"url": {
+					"raw": "http://10.10.15.158:8007/api/iiben/base/open/user/register",
+					"protocol": "http",
+					"host": [
+						"10",
+						"10",
+						"15",
+						"158"
+					],
+					"port": "8007",
+					"path": [
+						"api",
+						"iiben",
+						"base",
+						"open",
+						"user",
+						"register"
+					],
+					"query": [
+						{
+							"key": "keyword",
+							"value": "贵",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://10.10.15.158:8007/api/iiben/base/open/region/getCityByParam?keyword=贵",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://10.10.15.158:8007/api/iiben/base/open/region/getCityByParam?keyword=贵",
+					"protocol": "http",
+					"host": [
+						"10",
+						"10",
+						"15",
+						"158"
+					],
+					"port": "8007",
+					"path": [
+						"api",
+						"iiben",
+						"base",
+						"open",
+						"region",
+						"getCityByParam"
+					],
+					"query": [
+						{
+							"key": "keyword",
+							"value": "贵"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

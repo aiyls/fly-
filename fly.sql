@@ -11,7 +11,7 @@
  Target Server Version : 80025
  File Encoding         : 65001
 
- Date: 14/07/2021 18:22:48
+ Date: 21/07/2021 18:06:36
 */
 
 SET NAMES utf8mb4;
@@ -3371,8 +3371,9 @@ CREATE TABLE `t_fly_dynamic` (
   `goods_ids` text COMMENT '关联商品ID',
   `goods_info` text COMMENT '关联商品信息，json格式保存',
   `status` int DEFAULT '1' COMMENT '状态1：正常 2：被举报属实 3：已删除',
+  `grade` int DEFAULT '1' COMMENT '置顶 1：正常 2：置顶',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='动态表';
+) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='动态表';
 
 -- ----------------------------
 -- Records of t_fly_dynamic
@@ -3419,19 +3420,28 @@ CREATE TABLE `t_fly_goods` (
   `city` varchar(50) DEFAULT NULL COMMENT '市',
   `area` varchar(50) DEFAULT NULL COMMENT '区县',
   `street` varchar(100) DEFAULT NULL COMMENT '街道',
-  `enclosure` varchar(255) DEFAULT NULL COMMENT '附件',
+  `enclosure` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT '附件',
   `remarks` text COMMENT '备注',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   `type` int DEFAULT NULL COMMENT '商品类型',
   `status` int DEFAULT '1' COMMENT '状态1：正常 2：已删除',
+  `user_id` bigint DEFAULT NULL COMMENT '用户ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='商品信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='商品信息表';
 
 -- ----------------------------
 -- Records of t_fly_goods
 -- ----------------------------
 BEGIN;
+INSERT INTO `t_fly_goods` VALUES (7, '好喝得不行好喝得不行好喝得不行', 00000256.99, 100, '2016', '贵州省贵阳市观山湖区天一国际广场11栋12楼1205室', NULL, NULL, NULL, NULL, NULL, NULL, 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1309%2F25%2Fc49%2F26316176_26316176_1380092693834_mthumb.jpg&refer=http%3A%2F%2Fimg.pconline.com.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1629452792&t=d80c6ba7e7c014b9c3a32fbab26bd1df', NULL, '2021-07-21 18:03:58', '2021-07-21 18:03:58', 1, 1, 3);
+INSERT INTO `t_fly_goods` VALUES (8, '好喝得不行好喝得不行好喝得不行', 00000256.99, 100, '2016', '贵州省贵阳市观山湖区天一国际广场11栋12楼1205室', NULL, NULL, NULL, NULL, NULL, NULL, 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1309%2F25%2Fc49%2F26316176_26316176_1380092693834_mthumb.jpg&refer=http%3A%2F%2Fimg.pconline.com.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1629452792&t=d80c6ba7e7c014b9c3a32fbab26bd1df', NULL, '2021-07-21 18:04:25', '2021-07-21 18:04:25', 1, 1, 3);
+INSERT INTO `t_fly_goods` VALUES (9, '好喝得不行好喝得不行好喝得不行', 00000256.99, 100, '2016', '贵州省贵阳市观山湖区天一国际广场11栋12楼1205室', NULL, NULL, NULL, NULL, NULL, NULL, 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1309%2F25%2Fc49%2F26316176_26316176_1380092693834_mthumb.jpg&refer=http%3A%2F%2Fimg.pconline.com.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1629452792&t=d80c6ba7e7c014b9c3a32fbab26bd1df', NULL, '2021-07-21 18:04:27', '2021-07-21 18:04:27', 1, 1, 3);
+INSERT INTO `t_fly_goods` VALUES (10, '好喝得不行好喝得不行好喝得不行', 00000256.99, 100, '2016', '贵州省贵阳市观山湖区天一国际广场11栋12楼1205室', NULL, NULL, NULL, NULL, NULL, NULL, 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1309%2F25%2Fc49%2F26316176_26316176_1380092693834_mthumb.jpg&refer=http%3A%2F%2Fimg.pconline.com.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1629452792&t=d80c6ba7e7c014b9c3a32fbab26bd1df', NULL, '2021-07-21 18:04:28', '2021-07-21 18:04:28', 1, 1, 3);
+INSERT INTO `t_fly_goods` VALUES (11, '好喝得不行好喝得不行好喝得不行', 00000256.99, 100, '2016', '贵州省贵阳市观山湖区天一国际广场11栋12楼1205室', NULL, NULL, NULL, NULL, NULL, NULL, 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1309%2F25%2Fc49%2F26316176_26316176_1380092693834_mthumb.jpg&refer=http%3A%2F%2Fimg.pconline.com.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1629452792&t=d80c6ba7e7c014b9c3a32fbab26bd1df', NULL, '2021-07-21 18:04:29', '2021-07-21 18:04:29', 1, 1, 3);
+INSERT INTO `t_fly_goods` VALUES (12, '好喝得不行好喝得不行好喝得不行', 00000256.99, 100, '2016', '贵州省贵阳市观山湖区天一国际广场11栋12楼1205室', NULL, NULL, NULL, NULL, NULL, NULL, 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1309%2F25%2Fc49%2F26316176_26316176_1380092693834_mthumb.jpg&refer=http%3A%2F%2Fimg.pconline.com.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1629452792&t=d80c6ba7e7c014b9c3a32fbab26bd1df', NULL, '2021-07-21 18:04:29', '2021-07-21 18:04:29', 1, 1, 3);
+INSERT INTO `t_fly_goods` VALUES (13, '好喝得不行好喝得不行好喝得不行', 00000256.99, 100, '2016', '贵州省贵阳市观山湖区天一国际广场11栋12楼1205室', NULL, NULL, NULL, NULL, NULL, NULL, 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1309%2F25%2Fc49%2F26316176_26316176_1380092693834_mthumb.jpg&refer=http%3A%2F%2Fimg.pconline.com.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1629452792&t=d80c6ba7e7c014b9c3a32fbab26bd1df', NULL, '2021-07-21 18:04:31', '2021-07-21 18:04:31', 1, 1, 3);
+INSERT INTO `t_fly_goods` VALUES (14, '好喝得不行好喝得不行好喝得不行', 00000256.99, 100, '2016', '贵州省贵阳市观山湖区天一国际广场11栋12楼1205室', NULL, NULL, NULL, NULL, NULL, NULL, 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1309%2F25%2Fc49%2F26316176_26316176_1380092693834_mthumb.jpg&refer=http%3A%2F%2Fimg.pconline.com.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1629452792&t=d80c6ba7e7c014b9c3a32fbab26bd1df', NULL, '2021-07-21 18:04:32', '2021-07-21 18:04:32', 1, 1, 3);
 COMMIT;
 
 -- ----------------------------
@@ -5490,7 +5500,7 @@ CREATE TABLE `t_fly_user` (
   `status` int DEFAULT NULL COMMENT '状态',
   `remake` text COMMENT '备注',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime NOT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `nickname` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '昵称',
   `idcard` varchar(20) DEFAULT NULL COMMENT '身份证号码',
   `front_image` varchar(255) DEFAULT NULL COMMENT '身份证正面',
@@ -5504,12 +5514,13 @@ CREATE TABLE `t_fly_user` (
   `address` varchar(255) DEFAULT NULL COMMENT '所在城市',
   `realname` varchar(255) DEFAULT NULL COMMENT '真实姓名',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户表';
 
 -- ----------------------------
 -- Records of t_fly_user
 -- ----------------------------
 BEGIN;
+INSERT INTO `t_fly_user` VALUES (3, '18275317961', '123456', NULL, NULL, NULL, 3, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, 0, 0, 0, 0, NULL, NULL);
 COMMIT;
 
 -- ----------------------------

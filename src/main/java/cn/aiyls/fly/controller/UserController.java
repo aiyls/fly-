@@ -26,18 +26,33 @@ public class UserController {
         return userService.getPublicKey();
     }
 
+    /**
+     * 注册
+     * @param param
+     * @return
+     */
     @NoEmptyStr(value = "phone,password")
     @PostMapping("/register")
     public Object add(@RequestBody JSONObject param){
         return userService.add(param);
     }
 
+    /**
+     * 登录
+     * @param param
+     * @return
+     */
     @NoEmptyStr(value = "password,phone")
     @PostMapping("/login")
     public Object login(@RequestBody JSONObject param){
         return userService.login(param);
     }
 
+    /**
+     * 更新个人信息
+     * @param param
+     * @return
+     */
     @NoEmptyStr(value = "id,phone")
     @PostMapping("/update")
     public Object update(@RequestBody JSONObject param){

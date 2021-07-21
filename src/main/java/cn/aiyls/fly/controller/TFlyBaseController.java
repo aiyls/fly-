@@ -18,14 +18,23 @@ public class TFlyBaseController {
         this.baseRegionService = regionService;
     }
 
+    /**
+     * 返回所有地区数据
+     * @return
+     */
     @GetMapping("/getCityOrderByLetter")
     public Object getCityOrderByLetter() {
         return baseRegionService.selectAll();
     }
 
+    /**
+     * 检索地区
+     * @param keyword
+     * @return
+     */
     @NoEmptyStr(value = "keyword")
-    @PostMapping("/getCityByParam")
-    public Object getCityByParam(@RequestBody JSONObject params) {
-        return baseRegionService.getCityByParam(params);
+    @GetMapping("/getCityByParam")
+    public Object getCityByParam(@RequestParam("keyword") String keyword) {
+        return baseRegionService.getCityByParam(keyword);
     }
 }

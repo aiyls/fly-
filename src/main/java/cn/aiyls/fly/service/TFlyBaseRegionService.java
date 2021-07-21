@@ -1,5 +1,6 @@
 package cn.aiyls.fly.service;
 
+import cn.aiyls.fly.aop.CrossDomainWhether;
 import cn.aiyls.fly.entity.TFlyBaseRegion;
 import cn.aiyls.fly.enums.ReturnCodes;
 import cn.aiyls.fly.mapper.TFlyBaseRegionMapper;
@@ -43,8 +44,8 @@ public class TFlyBaseRegionService {
     /**
      * 按输入参数模糊查询
      */
-    public Object getCityByParam(JSONObject params) {
-        List<TFlyBaseRegion> baseRegionList = baseRegionMapper.selectList(new LambdaQueryWrapper<TFlyBaseRegion>().like(TFlyBaseRegion::getRegionName, params.getString("keyword")));
+    public Object getCityByParam(String keyword) {
+        List<TFlyBaseRegion> baseRegionList = baseRegionMapper.selectList(new LambdaQueryWrapper<TFlyBaseRegion>().like(TFlyBaseRegion::getRegionName, keyword));
         return new Result<Object>(ReturnCodes.success, baseRegionList);
     }
 }

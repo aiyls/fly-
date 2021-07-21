@@ -65,7 +65,7 @@ public class Result<T> {
     }
 
     public static Result ok() {
-        Result result = new Result(200, "请求成功");
+        Result result = new Result(ReturnCodes.success, "请求成功");
         return result;
     }
 

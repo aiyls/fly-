@@ -91,6 +91,11 @@ public class TFlyDynamic  implements Serializable {
 	 */
 	private Integer status;
 
+	/**
+	 * 置顶 1：正常 2：置顶
+	 */
+	private Integer grade;
+
 	public Integer getId() {
 		return this.id;
 	}
@@ -203,6 +208,14 @@ public class TFlyDynamic  implements Serializable {
 		this.status = status;
 	}
 
+	public Integer getGrade() {
+		return grade;
+	}
+
+	public void setGrade(Integer grade) {
+		this.grade = grade;
+	}
+
 	@Override
 	public String toString() {
 		return "{" +
@@ -220,6 +233,7 @@ public class TFlyDynamic  implements Serializable {
 					"goodsIds='" + goodsIds + '\'' +
 					"goodsInfo='" + goodsInfo + '\'' +
 					"status='" + status + '\'' +
+					"grade='" + grade + '\'' +
 				'}';
 	}
 
@@ -240,6 +254,7 @@ public class TFlyDynamic  implements Serializable {
 		this.goodsIds = model.goodsIds;
 		this.goodsInfo = model.goodsInfo;
 		this.status = model.status;
+		this.grade = model.grade;
 	}
 
 }

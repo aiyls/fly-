@@ -26,6 +26,11 @@ public class TFlyGoods  implements Serializable {
 	private Long id;
 
 	/**
+	 * 用户ID
+	 */
+	private Long userId;
+
+	/**
 	 * 商品名称
 	 */
 	private String goodsName;
@@ -118,6 +123,14 @@ public class TFlyGoods  implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public String getGoodsName() {
@@ -277,6 +290,7 @@ public class TFlyGoods  implements Serializable {
 					"updateTime='" + updateTime + '\'' +
 					"type='" + type + '\'' +
 					"status='" + status + '\'' +
+					"userId='" + userId + '\'' +
 				'}';
 	}
 
@@ -301,6 +315,7 @@ public class TFlyGoods  implements Serializable {
 		this.updateTime = model.updateTime;
 		this.type = model.type;
 		this.status = model.status;
+		this.userId = model.userId;
 	}
 
 }

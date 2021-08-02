@@ -31,7 +31,7 @@ public class UserController {
      * @param param
      * @return
      */
-    @NoEmptyStr(value = "phone,password")
+    @NoEmptyStr(value = "username,password")
     @PostMapping("/register")
     public Object add(@RequestBody JSONObject param){
         return userService.add(param);
@@ -44,7 +44,7 @@ public class UserController {
      */
     @NoEmptyStr(value = "password,phone")
     @PostMapping("/login")
-    public Object login(@RequestBody JSONObject param){
+    public Object login(@RequestBody JSONObject param) throws IllegalAccessException {
         return userService.login(param);
     }
 

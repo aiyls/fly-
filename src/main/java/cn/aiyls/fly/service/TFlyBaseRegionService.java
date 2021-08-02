@@ -29,8 +29,8 @@ public class TFlyBaseRegionService {
     private final TFlyBaseRegionMapper baseRegionMapper;
 
     @Autowired
-    public TFlyBaseRegionService(TFlyBaseRegionMapper brMapper) {
-        this.baseRegionMapper = brMapper;
+    public TFlyBaseRegionService(TFlyBaseRegionMapper baseRegionMapper) {
+        this.baseRegionMapper = baseRegionMapper;
     }
 
     /**

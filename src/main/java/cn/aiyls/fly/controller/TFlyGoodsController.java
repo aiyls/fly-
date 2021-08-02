@@ -5,13 +5,13 @@ import cn.aiyls.fly.entity.TFlyGoods;
 import cn.aiyls.fly.enums.ReturnCodes;
 import cn.aiyls.fly.service.TFlyGoodsService;
 import cn.aiyls.fly.utils.Result;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 
 @RestController
@@ -49,7 +49,32 @@ public class TFlyGoodsController {
     /**
      * 删除
      */
+    @NoEmptyStr(value = "ids")
+    @PostMapping(value = "/deleteGoods")
+    public  Object deleteGoods(@RequestBody JSONObject params) throws Exception {
+        String paramIds = params.getString("ids");
+        String[] arrayIds = paramIds.split(",");
+        if (arrayIds.length == 0 ) {
+            return new Result<Object>(ReturnCodes.failed, "ids不能为空");
+        }
+        return goodsService.delete(arrayIds);
+    }
 
+    /**
+     * 查询商品列表
+     */
+    @NoEmptyStr(value = "pageNum,pageSize,userId")
+    @GetMapping(value = "/selectGoodsList")
+    public Object selectGoodsList(@RequestBody JSONObject params) {
+        return goodsService.selectAll(params);
+    }
 
-
+    /**
+     * 根据ID查询商品详情
+     */
+    @NoEmptyStr(value = "goodsId")
+    @GetMapping(value = "/selectGoodsById")
+    public Object selectGoodsById(@RequestParam("goodsId") String goodsId) {
+        return goodsService.selectById(goodsId);
+    }
 }

@@ -9,6 +9,7 @@ import cn.aiyls.fly.redis.RedisUtil;
 import cn.aiyls.fly.utils.BaseMethod;
 import cn.aiyls.fly.utils.RSAUtil;
 import cn.aiyls.fly.utils.Result;
+import cn.aiyls.fly.utils.StringUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.security.Key;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -69,8 +71,26 @@ public class UserService {
     public Object add(JSONObject param){
         logger.info(" add 开始");
         User user = param.toJavaObject(param, User.class);
+        // 判断是否为空
+        User notUser = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUserName, user.getUserName()));
+        if (!ObjectUtils.isEmpty(notUser)) {
+            return new Result<Object>(ReturnCodes.usernameAlreadyExists);
+        }
         user.setStatus(UserEnums.ENABLE.getKey());
         user.setSex(UserEnums.UNKNOWN.getKey());
+        // 验证密码
+        String decodedPassword = null;
+        String privateKey = redisUtil.getValue(Constant.RSA, Constant.RSA_PRIVATE_KEY_APP).toString();
+        try {
+            String password = param.getString("password");
+            byte[] decodedData = RSAUtil.encryptByPrivateKey(StringUtil.strConvertByteArray(password), privateKey);
+            decodedPassword = new String(decodedData);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result<Object>(ReturnCodes.privateKeyDecryptionError);
+        }
+        String getPassword = DigestUtils.md5Hex(decodedPassword + user.getSlat());
+        user.setPassword(getPassword);
         userMapper.insert(user);
         logger.info(" add 结束");
         return new Result<Object>(ReturnCodes.success);
@@ -84,10 +104,10 @@ public class UserService {
         return new Result<Object>(ReturnCodes.success);
     }
 
-    public Object login(JSONObject param){
+    public Object login(JSONObject param) throws IllegalAccessException {
 
         //  验证用户是否存在
-        User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUserName, param.getString("user_name")));
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUserName, param.getString("username")));
         if (ObjectUtils.isEmpty(user)){
             return new Result<Object>(ReturnCodes.usernameDoesNotExist);
         }
@@ -100,7 +120,7 @@ public class UserService {
         String decodedPassword = null;
         try {
             String password = param.getString("password");
-            byte[] decodedData = RSAUtil.decryptByPrivateKey(password, privateKey);
+            byte[] decodedData = RSAUtil.encryptByPrivateKey(StringUtil.strConvertByteArray(password), privateKey);
             decodedPassword = new String(decodedData);
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,7 +133,10 @@ public class UserService {
             return new Result<Object>(ReturnCodes.accountPasswordError);
         }
         String token = BaseMethod.getRequest().getSession().getId();
-        redisUtil.setKey(token, Constant.TOKEN, token);
-        return new Result<Object>(ReturnCodes.success, new User(user));
+        redisUtil.setKey(token, Constant.TOKEN, user.getUserName());
+        user.setPassword("");
+        Map<String, Object> map = User.objectToMap(user);
+        map.put("token", token);
+        return new Result<Object>(ReturnCodes.success, map);
     }
 }

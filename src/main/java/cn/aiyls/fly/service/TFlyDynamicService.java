@@ -22,8 +22,8 @@ public class TFlyDynamicService {
     private final TFlyDynamicMapper dynamicMapper;
 
     @Autowired
-    public TFlyDynamicService(TFlyDynamicMapper _dynamicMapper) {
-        this.dynamicMapper = _dynamicMapper;
+    public TFlyDynamicService(TFlyDynamicMapper dynamicMapper) {
+        this.dynamicMapper = dynamicMapper;
     }
 
     /**

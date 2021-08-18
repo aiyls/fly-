@@ -107,6 +107,8 @@ public class TFlyCompany  implements Serializable {
 	 */
 	private String street;
 
+	private Integer status;
+
 	public Long getId() {
 		return this.id;
 	}
@@ -243,6 +245,14 @@ public class TFlyCompany  implements Serializable {
 		this.street = street;
 	}
 
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "{" +
@@ -286,6 +296,7 @@ public class TFlyCompany  implements Serializable {
 		this.city = model.city;
 		this.area = model.area;
 		this.street = model.street;
+		this.status = model.status;
 	}
 
 }

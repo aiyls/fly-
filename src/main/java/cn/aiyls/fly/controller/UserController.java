@@ -58,4 +58,6 @@ public class UserController {
     public Object update(@RequestBody JSONObject param){
         return userService.update(param);
     }
+
+
 }

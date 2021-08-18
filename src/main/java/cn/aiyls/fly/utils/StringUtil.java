@@ -72,6 +72,14 @@ public class StringUtil {
         return num;
     }
 
+    public static boolean isEmpty(String str) {
+        return str == null || str.length() == 0;
+    }
+
+    public static boolean isNotEmpty(String str) {
+        return !isEmpty(str);
+    }
+
     /**
      * 字节数组转换成字符串
      * @param byteArray

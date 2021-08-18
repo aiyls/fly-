@@ -51,6 +51,8 @@ public class TFlyVisitor  implements Serializable {
    	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime createDate;
 
+   	private Integer status;
+
 	public Long getId() {
 		return this.id;
 	}
@@ -99,6 +101,14 @@ public class TFlyVisitor  implements Serializable {
 		this.createDate = createDate;
 	}
 
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "{" +
@@ -120,6 +130,7 @@ public class TFlyVisitor  implements Serializable {
 		this.userId = model.userId;
 		this.createTime = model.createTime;
 		this.createDate = model.createDate;
+		this.status = model.status;
 	}
 
 }

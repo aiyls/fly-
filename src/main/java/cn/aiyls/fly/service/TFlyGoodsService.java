@@ -4,6 +4,7 @@ import cn.aiyls.fly.entity.TFlyDynamic;
 import cn.aiyls.fly.entity.TFlyGoods;
 import cn.aiyls.fly.enums.ReturnCodes;
 import cn.aiyls.fly.mapper.TFlyGoodsMapper;
+import cn.aiyls.fly.utils.JwtUtils;
 import cn.aiyls.fly.utils.Result;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 
@@ -26,7 +29,6 @@ public class TFlyGoodsService {
     public TFlyGoodsService(TFlyGoodsMapper _goodsMaper) {
         this.goodsMapper = _goodsMaper;
     }
-
 
     /**
      * 新增商品

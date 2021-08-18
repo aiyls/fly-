@@ -362,31 +362,31 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "{" +
-                "id='" + id + '\'' +
-                "userName='" + userName + '\'' +
-                "password='" + password + '\'' +
-                "slat='" + slat + '\'' +
-                "phone='" + phone + '\'' +
-                "email='" + email + '\'' +
-                "sex='" + sex + '\'' +
-                "birthday='" + birthday + '\'' +
-                "brief='" + brief + '\'' +
-                "icon='" + icon + '\'' +
-                "status='" + status + '\'' +
-                "remake='" + remake + '\'' +
-                "createTime='" + createTime + '\'' +
-                "updateTime='" + updateTime + '\'' +
-                "nickname='" + nickname + '\'' +
-                "idcard='" + idcard + '\'' +
-                "frontImage='" + frontImage + '\'' +
-                "backImage='" + backImage + '\'' +
-                "grade='" + grade + '\'' +
-                "corpAuth='" + corpAuth + '\'' +
-                "idcardAuth='" + idcardAuth + '\'' +
-                "messageNum='" + messageNum + '\'' +
-                "dynamicNum='" + dynamicNum + '\'' +
-                "visitor='" + visitor + '\'' +
-                "address='" + address + '\'' +
+                "id='" + id + '\'' + ',' +
+                "userName='" + userName + '\'' + ',' +
+                "password='" + password + '\'' + ',' +
+                "slat='" + slat + '\'' + ',' +
+                "phone='" + phone + '\'' + ',' +
+                "email='" + email + '\'' + ',' +
+                "sex='" + sex + '\'' + ',' +
+                "birthday='" + birthday + '\'' + ',' +
+                "brief='" + brief + '\'' + ',' +
+                "icon='" + icon + '\'' + ',' +
+                "status='" + status + '\'' + ',' +
+                "remake='" + remake + '\'' + ',' +
+                "createTime='" + createTime + '\'' + ',' +
+                "updateTime='" + updateTime + '\'' + ',' +
+                "nickname='" + nickname + '\'' + ',' +
+                "idcard='" + idcard + '\'' + ',' +
+                "frontImage='" + frontImage + '\'' + ',' +
+                "backImage='" + backImage + '\'' + ',' +
+                "grade='" + grade + '\'' + ',' +
+                "corpAuth='" + corpAuth + '\'' + ',' +
+                "idcardAuth='" + idcardAuth + '\'' + ',' +
+                "messageNum='" + messageNum + '\'' + ',' +
+                "dynamicNum='" + dynamicNum + '\'' + ',' +
+                "visitor='" + visitor + '\'' + ',' +
+                "address='" + address + '\'' + ',' +
                 "realname='" + realname + '\'' +
                 '}';
     }

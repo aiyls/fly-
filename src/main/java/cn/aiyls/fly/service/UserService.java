@@ -6,10 +6,7 @@ import cn.aiyls.fly.enums.ReturnCodes;
 import cn.aiyls.fly.enums.UserEnums;
 import cn.aiyls.fly.mapper.UserMapper;
 import cn.aiyls.fly.redis.RedisUtil;
-import cn.aiyls.fly.utils.BaseMethod;
-import cn.aiyls.fly.utils.RSAUtil;
-import cn.aiyls.fly.utils.Result;
-import cn.aiyls.fly.utils.StringUtil;
+import cn.aiyls.fly.utils.*;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -20,8 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+
 import java.security.Key;
-import java.util.HashMap;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
@@ -37,6 +35,7 @@ public class UserService {
 
     private final UserMapper userMapper;
     private final RedisUtil redisUtil;
+
     @Autowired
     public UserService(UserMapper userMapper, RedisUtil redisUtil) {
         this.userMapper = userMapper;
@@ -91,16 +90,17 @@ public class UserService {
         }
         String getPassword = DigestUtils.md5Hex(decodedPassword + user.getSlat());
         user.setPassword(getPassword);
+        user.setCreateTime(LocalDateTime.now());
+        user.setUpdateTime(LocalDateTime.now());
         userMapper.insert(user);
         logger.info(" add 结束");
         return new Result<Object>(ReturnCodes.success);
     }
 
     public Object update(JSONObject param){
-        logger.info(" update 开始");
         User user = param.toJavaObject(param, User.class);
+        user.setUpdateTime(LocalDateTime.now());
         userMapper.updateById(user);
-        logger.info(" update 结束");
         return new Result<Object>(ReturnCodes.success);
     }
 
@@ -133,7 +133,7 @@ public class UserService {
             return new Result<Object>(ReturnCodes.accountPasswordError);
         }
         String token = BaseMethod.getRequest().getSession().getId();
-        redisUtil.setKey(token, Constant.TOKEN, user.getUserName());
+        redisUtil.setKey(token, Constant.TOKEN, net.sf.json.JSONObject.fromObject(user).toString());
         user.setPassword("");
         Map<String, Object> map = User.objectToMap(user);
         map.put("token", token);

@@ -24,6 +24,7 @@ public class TFlyReport  implements Serializable {
    @TableId(type = IdType.AUTO)
 	private Long id;
 
+   	private Long dynamicId;
 	/**
 	 * 举报理由
 	 */
@@ -138,6 +139,14 @@ public class TFlyReport  implements Serializable {
 		this.updateTime = updateTime;
 	}
 
+	public Long getDynamicId() {
+		return dynamicId;
+	}
+
+	public void setDynamicId(Long dynamicId) {
+		this.dynamicId = dynamicId;
+	}
+
 	@Override
 	public String toString() {
 		return "{" +
@@ -165,6 +174,7 @@ public class TFlyReport  implements Serializable {
 		this.status = model.status;
 		this.createTime = model.createTime;
 		this.updateTime = model.updateTime;
+		this.dynamicId = model.dynamicId;
 	}
 
 }

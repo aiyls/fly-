@@ -1,9 +1,10 @@
 package cn.aiyls.fly.service;
 
-import cn.aiyls.fly.entity.TFlyDynamic;
-import cn.aiyls.fly.entity.User;
+import cn.aiyls.fly.entity.*;
 import cn.aiyls.fly.enums.ReturnCodes;
+import cn.aiyls.fly.mapper.TFlyCommentMapper;
 import cn.aiyls.fly.mapper.TFlyDynamicMapper;
+import cn.aiyls.fly.mapper.TFlyLikeDynamicMapper;
 import cn.aiyls.fly.utils.JwtUtils;
 import cn.aiyls.fly.utils.Result;
 import cn.hutool.http.HttpResponse;
@@ -28,12 +29,21 @@ public class TFlyDynamicService {
 
     private final TFlyDynamicMapper dynamicMapper;
 
+    private final TFlyLikeDynamicMapper likeDynamicMapper;
+
+    /**
+     * 评论
+     */
+    private final TFlyCommentMapper commentMapper;
+
     @Resource
     HttpServletRequest request;
 
     @Autowired
-    public TFlyDynamicService(TFlyDynamicMapper dynamicMapper) {
+    public TFlyDynamicService(TFlyDynamicMapper dynamicMapper, TFlyLikeDynamicMapper likeDynamicMapper, TFlyCommentMapper commentMapper) {
         this.dynamicMapper = dynamicMapper;
+        this.likeDynamicMapper = likeDynamicMapper;
+        this.commentMapper = commentMapper;
     }
 
     /**
@@ -72,15 +82,33 @@ public class TFlyDynamicService {
     }
 
     /**
-     * 喜欢
+     * 喜欢 取消喜欢
      */
     public Object likeNum(String id) {
+        // 查询当前用户是否喜欢了当前动态
+        TFlyLikeDynamic myLikeDynamic = likeDynamicMapper.selectOne(new QueryWrapper<TFlyLikeDynamic>().lambda().eq(TFlyLikeDynamic::getDynamicId, id).eq(TFlyLikeDynamic::getUserId, JwtUtils.getUserId(request)));
         TFlyDynamic dynamic = dynamicMapper.selectOne(new QueryWrapper<TFlyDynamic>().lambda().eq(TFlyDynamic::getId, Long.valueOf(id)));
-        dynamic.setLikeNum(dynamic.getLikeNum() + 1);
+        if (myLikeDynamic == null) {
+            dynamic.setLikeNum(dynamic.getLikeNum() + 1);
+        } else {
+            dynamic.setLikeNum(dynamic.getLikeNum() - 1);
+        }
         dynamic.setUpdateTime(LocalDateTime.now());
         int index = dynamicMapper.updateById(dynamic);
         if (index != 1) {
             return new Result<Object>(ReturnCodes.failed, "更新失败");
+        }
+        if (myLikeDynamic == null) {
+            //更新个人数据
+            Long userId = JwtUtils.getUserId(request);
+            TFlyLikeDynamic likeDynamic = new TFlyLikeDynamic();
+            likeDynamic.setUserId(userId);
+            likeDynamic.setDynamicId(dynamic.getId());
+            likeDynamic.setCreateTime(LocalDateTime.now());
+            likeDynamic.setUpdateTime(LocalDateTime.now());
+            likeDynamicMapper.insert(likeDynamic);
+        } else {
+            likeDynamicMapper.deleteById(myLikeDynamic.getId());
         }
         return new Result<Object>(ReturnCodes.success, "更新成功");
     }
@@ -140,4 +168,31 @@ public class TFlyDynamicService {
         }
         return new Result<Object>(ReturnCodes.success, "删除成功");
     }
+
+    /**
+     * 评论
+     */
+    public Object commentDynamic(JSONObject parmas) {
+        //1.添加评论
+        TFlyComment comment = parmas.toJavaObject(parmas, TFlyComment.class);
+        TFlyDynamic dynamic = dynamicMapper.selectById(comment.getDynamicId());
+        if (dynamic == null || dynamic.getStatus() == 3) {
+            return new Result<Object>(ReturnCodes.failed, "动态不存在");
+        }
+        if (dynamic.getStatus() != 1) {
+            return new Result<Object>(ReturnCodes.failed, "动态存在异常,无法评论");
+        }
+        comment.setCreateTime(LocalDateTime.now());
+        comment.setUpdateTime(LocalDateTime.now());
+        int success = commentMapper.insert(comment);
+        if (success != 1) {
+            return new Result<Object>(ReturnCodes.failed, "评论失败");
+        }
+        //2.修改评论的评论数量
+        dynamic.setCommentNum(dynamic.getCommentNum() + 1);
+        dynamic.setUpdateTime(LocalDateTime.now());
+        dynamicMapper.updateById(dynamic);
+        return new Result<Object>(ReturnCodes.success, "评论成功");
+    }
+
 }

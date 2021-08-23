@@ -37,6 +37,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         String uri = request.getRequestURI();
         if (uri.contains(".") || uri.contains("login") || uri.contains("register")
                 || uri.contains("region")
+                || uri.contains("dynamicList")
                 || uri.contains("dynamicDetail")) {
             filterChain.doFilter(request,response);
             return;

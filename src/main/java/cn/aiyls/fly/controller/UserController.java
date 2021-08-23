@@ -59,5 +59,9 @@ public class UserController {
         return userService.update(param);
     }
 
-
+    /**
+     * 查询个人喜欢的动态
+     */
+    @GetMapping(value = "/dynamicLikeList")
+    public Object dynamicLikeList(@RequestBody JSONObject param) { return userService.selectLikeDynamic(param); }
 }

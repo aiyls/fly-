@@ -1,5 +1,6 @@
 package cn.aiyls.fly.controller;
 
+import cn.aiyls.fly.aop.NoEmptyStr;
 import cn.aiyls.fly.entity.TFlyDynamic;
 import cn.aiyls.fly.enums.ReturnCodes;
 import cn.aiyls.fly.service.TFlyDynamicService;
@@ -75,6 +76,12 @@ public class TFlyDynamicContrller {
         return dynamicService.likeNum(dynamicId);
     }
 
-
-
+    /**
+     * 评论 回复
+     */
+    @NoEmptyStr(value = "dynamicId,toUserId,fromUserId,commentText")
+    @PostMapping(value = "/dynamicComment")
+    public Object dynamicComment(@RequestBody JSONObject params) {
+        return dynamicService.commentDynamic(params);
+    }
 }

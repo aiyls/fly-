@@ -1,14 +1,17 @@
 package cn.aiyls.fly.redis;
 
+import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import cn.aiyls.fly.utils.SerializeUtil;
+import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.ListOperations;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,9 +22,11 @@ public class RedisUtil {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	private final StringRedisTemplate template;
+	private final RedisTemplate<String, Object> redisTemplate;
 	@Autowired
-	public RedisUtil(StringRedisTemplate template) {
+	public RedisUtil(StringRedisTemplate template, RedisTemplate redisTemplate) {
 		this.template = template;
+		this.redisTemplate = redisTemplate;
 	}
 
 	// ==============common
@@ -60,6 +65,7 @@ public class RedisUtil {
 		HashOperations<String, Object, Object> ops = template.opsForHash();
 		return ops.hasKey(key, hashKey);
 	}
+
 	// ==============hash
 
 	// ==============set
@@ -99,4 +105,19 @@ public class RedisUtil {
 		return ops.get(key);
 	}
 	// ==============string
+
+	// ==============object
+	public void setObject(String key, Object object) {
+		ValueOperations ops = redisTemplate.opsForValue();
+		byte[] bytes = SerializeUtil.serizlize(object);
+		ops.set(key, object);
+		logger.info("通过key：" + key + "，keyType：" + "从redis中取出值为：" + bytes);
+	}
+
+	public Object getObject(String key) {
+		ValueOperations ops = redisTemplate.opsForValue();
+		Object object = ops.get(key);
+		return object;
+	}
+	// ==============object
 }

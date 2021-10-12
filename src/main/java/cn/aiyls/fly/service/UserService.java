@@ -99,6 +99,7 @@ public class UserService {
         user.setPassword(getPassword);
         user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
+        user.setBirthday(LocalDateTime.of(1970,1,1,0,0,0));
         userMapper.insert(user);
         logger.info(" add 结束");
         return new Result<Object>(ReturnCodes.success);
@@ -140,8 +141,14 @@ public class UserService {
             return new Result<Object>(ReturnCodes.accountPasswordError);
         }
         String token = BaseMethod.getRequest().getSession().getId();
-        redisUtil.setKey(token, Constant.TOKEN, net.sf.json.JSONObject.fromObject(user).toString());
+        // 时间格式进去缓存不了，准确说能力不够，搞了一天还是没搞通 用这种low的做法吧
+        LocalDateTime birthday = user.getBirthday();
+        user.setBirthday(null);
+        user.setCreateTime(null);
+        user.setUpdateTime(null);
+        redisUtil.setObject(token, user);
         user.setPassword("");
+        user.setBirthday(birthday);
         Map<String, Object> map = User.objectToMap(user);
         map.put("token", token);
         return new Result<Object>(ReturnCodes.success, map);

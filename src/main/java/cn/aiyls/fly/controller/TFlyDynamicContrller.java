@@ -84,4 +84,12 @@ public class TFlyDynamicContrller {
     public Object dynamicComment(@RequestBody JSONObject params) {
         return dynamicService.commentDynamic(params);
     }
+
+    /**
+     * 评论列表
+     */
+    @GetMapping(value = "/commentList")
+    public Object commentList(@RequestBody JSONObject params) {
+        return dynamicService.selectCommentList(params);
+    }
 }

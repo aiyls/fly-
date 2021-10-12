@@ -3,13 +3,17 @@ package cn.aiyls.fly.utils;
 import cn.aiyls.fly.constant.Constant;
 import cn.aiyls.fly.entity.User;
 import cn.aiyls.fly.redis.RedisUtil;
+
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.soap.MimeHeaders;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class JwtUtils {
@@ -31,12 +35,11 @@ public class JwtUtils {
         if (token.isEmpty()) {
             return Long.valueOf(0);
         }
-        Object userString = redisUtil.getValue(token, Constant.TOKEN);
-        if (userString == null) {
+        User user = (User) redisUtil.getObject(token);
+        if (user == null) {
             return Long.valueOf(0);
         }
-        JSONObject jsonObject=JSONObject.fromObject(userString);
-        return Long.valueOf(jsonObject.getString("id"));
+        return Long.valueOf(user.getId());
     }
 
     public static String getClaimByName(HttpServletRequest request, AttributeEnum attributeEnum) {
@@ -44,28 +47,28 @@ public class JwtUtils {
         if (token.isEmpty()) {
             return "";
         }
-        Object userString = redisUtil.getValue(token, Constant.TOKEN);
-        if (userString == null) {
+        User user = (User) redisUtil.getObject(token);
+        if (user == null) {
             return "";
         }
-        JSONObject jsonObject=JSONObject.fromObject(userString);
         if (attributeEnum == AttributeEnum.USER_NAME) {
-            return jsonObject.getString("userName");
+            return user.getUserName();
         }
-        return jsonObject.getString("password");
+        return user.getPassword();
     }
 
     public static User getUser(HttpServletRequest request) {
-        String token = request.getHeader("authorization");
-        if (token.isEmpty()) {
-            return null;
+        User user = null;
+        try {
+            String token = request.getHeader("authorization");
+            if (token.isEmpty()) {
+                return null;
+            }
+            user = (User) redisUtil.getObject(token);
+        } catch (Exception e) {
+            System.out.print(e.getMessage());
+            user = null;
         }
-        Object userString = redisUtil.getValue(token, Constant.TOKEN);
-        if (userString == null) {
-            return null;
-        }
-        JSONObject jsonObject=JSONObject.fromObject(userString);
-        User user = (User) JSONObject.toBean(jsonObject, User.class);
         return user;
     }
 

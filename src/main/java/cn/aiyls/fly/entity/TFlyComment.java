@@ -1,13 +1,12 @@
 package cn.aiyls.fly.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @Description  
@@ -68,6 +67,12 @@ public class TFlyComment  implements Serializable {
 	 * 评论人的用户昵称
 	 */
 	private String fromUserName;
+
+	/**
+	 * 子评论
+	 */
+	@TableField(exist = false)
+	private List<TFlyComment> childList;
 
 	/**
 	 * 评论时间
@@ -193,6 +198,14 @@ public class TFlyComment  implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public List<TFlyComment> getChildList() {
+		return childList;
+	}
+
+	public void setChildList(List<TFlyComment> childList) {
+		this.childList = childList;
 	}
 
 	public Integer getPraiseNum() {

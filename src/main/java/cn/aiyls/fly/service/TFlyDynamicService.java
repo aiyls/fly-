@@ -21,6 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 @Transactional
@@ -54,7 +57,10 @@ public class TFlyDynamicService {
         IPage<TFlyDynamic> page = new Page<>(params.getInteger("pageNum"), params.getInteger("pageSize"));
         // 条件构造器
         QueryWrapper<TFlyDynamic> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(TFlyDynamic::getType,params.getInteger("type")).eq(TFlyDynamic::getStatus, 1).orderByAsc(TFlyDynamic::getCreateTime,TFlyDynamic::getUpdateTime,TFlyDynamic::getGrade);
+        queryWrapper.lambda().eq(TFlyDynamic::getStatus, 1).orderByDesc(TFlyDynamic::getGrade,TFlyDynamic::getCreateTime);
+        if ( params.getInteger("type") > 0) {
+            queryWrapper.lambda().eq(TFlyDynamic::getType,params.getInteger("type"));
+        }
         IPage<TFlyDynamic> pageList = dynamicMapper.selectPage(page, queryWrapper);
         return new Result<Object>(ReturnCodes.success,pageList);
     }
@@ -195,4 +201,41 @@ public class TFlyDynamicService {
         return new Result<Object>(ReturnCodes.success, "评论成功");
     }
 
+    /**
+     * 评论分页
+     */
+    public Object selectCommentList(JSONObject params) {
+        IPage<TFlyComment> page = new Page<>(params.getInteger("pageNum"), params.getInteger("pageSize"));
+        QueryWrapper<TFlyComment> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(TFlyComment::getDynamicId, params.getInteger("dynamicId"))
+                             .isNull(TFlyComment::getParentId)
+                             .orderByDesc(TFlyComment::getCreateTime);
+        IPage<TFlyComment> commentIPageList = commentMapper.selectPage(page, queryWrapper);
+        // 查询
+        List<TFlyComment> selectCommentList = commentMapper.selectList(new QueryWrapper<TFlyComment>().lambda().eq(TFlyComment::getDynamicId, params.getInteger("dynamicId")).isNotNull(TFlyComment::getParentId));
+        List<TFlyComment> commentList = new ArrayList<>();
+        for (int i = 0; i < commentIPageList.getRecords().toArray().length; i++) {
+            TFlyComment commentModel = commentIPageList.getRecords().get(i);
+            List<TFlyComment> commentChildList = new ArrayList<>();
+            for (int j = 0; j < selectCommentList.toArray().length; j++) {
+                TFlyComment replyModel = selectCommentList.get(j);
+                if (replyModel.getParentId().equals(commentModel.getId())) {
+                    commentChildList.add(replyModel);
+                }
+            }
+            commentModel.setChildList(commentChildList);
+            commentList.add(commentModel);
+        }
+        commentIPageList.setRecords(commentList);
+
+        return new Result<Object>(ReturnCodes.success,commentIPageList);
+    }
 }
+
+    // 分页
+//    IPage<TFlyDynamic> page = new Page<>(params.getInteger("pageNum"), params.getInteger("pageSize"));
+//    // 条件构造器
+//    QueryWrapper<TFlyDynamic> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.lambda().eq(TFlyDynamic::getType,params.getInteger("type")).eq(TFlyDynamic::getStatus, 1).orderByAsc(TFlyDynamic::getCreateTime,TFlyDynamic::getUpdateTime,TFlyDynamic::getGrade);
+//                IPage<TFlyDynamic> pageList = dynamicMapper.selectPage(page, queryWrapper);
+//        return new Result<Object>(ReturnCodes.success,pageList);

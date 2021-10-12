@@ -38,6 +38,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         if (uri.contains(".") || uri.contains("login") || uri.contains("register")
                 || uri.contains("region")
                 || uri.contains("dynamicList")
+                || uri.contains("getPublicKey")
                 || uri.contains("dynamicDetail")) {
             filterChain.doFilter(request,response);
             return;
@@ -50,9 +51,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             if (token == null || token.isEmpty()) {
                 resultEntity.setMessage("用户token不能为空");
             } else {
-                String account = redisUtil.getValue(token, Constant.TOKEN).toString();
                 User user = JwtUtils.getUser(request);
-                if (account.isEmpty() || user.getUserName().isEmpty()) {
+                if (user == null || user.getUserName().isEmpty()) {
                     resultEntity.setMessage("用户信息不存在");
                 }
             }

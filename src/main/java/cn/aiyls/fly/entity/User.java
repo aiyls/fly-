@@ -102,6 +102,11 @@ public class User implements Serializable {
     private String nickname;
 
     /**
+     * 真实姓名
+     */
+    private String realname;
+
+    /**
      * 身份证号码
      */
     private String idcard;
@@ -151,10 +156,6 @@ public class User implements Serializable {
      */
     private String address;
 
-    /**
-     * 真实姓名
-     */
-    private String realname;
 
     public Long getId() {
         return this.id;

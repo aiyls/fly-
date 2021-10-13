@@ -41,6 +41,15 @@ public class TFlyCompany  implements Serializable {
 	private String legalIdcard;
 
 	/**
+	 *	法人身份证正面
+	 */
+	private String legalFront;
+
+	/**
+	 *	法人身份证反面
+	 */
+	private String legalBack;
+	/**
 	 * 联系方式
 	 */
 	private String legalPhone;
@@ -139,6 +148,22 @@ public class TFlyCompany  implements Serializable {
 
 	public void setLegalIdcard(String legalIdcard) {
 		this.legalIdcard = legalIdcard;
+	}
+
+	public String getLegalFront() {
+		return legalFront;
+	}
+
+	public void setLegalFront(String legalFront) {
+		this.legalFront = legalFront;
+	}
+
+	public String getLegalBack() {
+		return legalBack;
+	}
+
+	public void setLegalBack(String legalBack) {
+		this.legalBack = legalBack;
 	}
 
 	public String getLegalPhone() {

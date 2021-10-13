@@ -21,8 +21,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -41,7 +45,8 @@ public class UserService {
     private final UserMapper userMapper;
     private final TFlyUserLikeDynamicMapper userLikeDynamicMapper;
     private final RedisUtil redisUtil;
-
+    @Resource
+    HttpServletRequest request;
     @Autowired
     public UserService(UserMapper userMapper, RedisUtil redisUtil, TFlyUserLikeDynamicMapper userLikeDynamicMapper) {
         this.userMapper = userMapper;
@@ -107,8 +112,14 @@ public class UserService {
 
     public Object update(JSONObject param){
         User user = param.toJavaObject(param, User.class);
+        if (user.getId() == null) {
+            user.setId(JwtUtils.getUserId(request));
+        }
         user.setUpdateTime(LocalDateTime.now());
-        userMapper.updateById(user);
+        Integer index = userMapper.updateById(user);
+        if (index == 0) {
+            return new Result<Object>(ReturnCodes.failed, "更新失败");
+        }
         return new Result<Object>(ReturnCodes.success);
     }
 

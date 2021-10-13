@@ -12,6 +12,7 @@ public enum ReturnCodes {
 
     success(200,"success","成功"),
     failed(201,"failed","失败"),
+    existCompanyInfo(203,"The company exists as","该公司已存在"),
     validateAopError(1001,"validate Aop Error","校验参数信息AOP错误"),
     accessTokenAopError(1002,"access Token Aop Error","校验登录信息AOP错误"),
     permissionAopError(1003,"permission Aop Error","校验权限信息AOP错误"),

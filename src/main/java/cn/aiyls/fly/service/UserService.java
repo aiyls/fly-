@@ -1,6 +1,7 @@
 package cn.aiyls.fly.service;
 
 import cn.aiyls.fly.constant.Constant;
+import cn.aiyls.fly.entity.TFlyFeedback;
 import cn.aiyls.fly.entity.TFlyUserLikeDynamic;
 import cn.aiyls.fly.entity.User;
 import cn.aiyls.fly.enums.ReturnCodes;
@@ -176,5 +177,23 @@ public class UserService {
         queryWrapper.lambda().orderByAsc(TFlyUserLikeDynamic::getCreateTime,TFlyUserLikeDynamic::getUpdateTime);
         IPage<TFlyUserLikeDynamic> pageList = userLikeDynamicMapper.selectPage(page, queryWrapper);
         return new Result<Object>(ReturnCodes.success,pageList);
+    }
+
+    /**
+     * 查询用户信息
+     */
+    public Object selectUserinfoById(Long id) {
+        Long userId = id;
+        if (id == 0) {
+            userId = JwtUtils.getUserId(request);
+        }
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(User::getId, userId);
+        User userinfo = userMapper.selectOne(queryWrapper);
+        userinfo.setPassword("");
+        if (userinfo == null) {
+            return new Result<Object>(ReturnCodes.failed, "没有数据");
+        }
+        return new Result<Object>(ReturnCodes.success, userinfo);
     }
 }

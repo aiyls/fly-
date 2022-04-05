@@ -1,6 +1,7 @@
 package cn.aiyls.fly.controller;
 
 import cn.aiyls.fly.aop.NoEmptyStr;
+import cn.aiyls.fly.entity.User;
 import cn.aiyls.fly.service.TFlyCompanyService;
 import cn.aiyls.fly.service.UserService;
 import com.alibaba.fastjson.JSON;
@@ -52,6 +53,14 @@ public class UserController {
     @PostMapping("/login")
     public Object login(@RequestBody JSONObject param) throws IllegalAccessException {
         return userService.login(param);
+    }
+
+    /**
+     * 查询用户信息
+     */
+    @GetMapping("/getUserinfo")
+    public Object getUserinfo(@RequestParam Long userId) {
+        return userService.selectUserinfoById(userId);
     }
 
     /**

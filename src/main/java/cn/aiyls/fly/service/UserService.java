@@ -103,6 +103,7 @@ public class UserService {
         }
         String getPassword = DigestUtils.md5Hex(decodedPassword + user.getSlat());
         user.setPassword(getPassword);
+        user.setNickname("玖友" + getPassword.substring(2,5));
         user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
         user.setBirthday(LocalDateTime.of(1970,1,1,0,0,0));

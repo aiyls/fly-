@@ -121,6 +121,8 @@ public class User implements Serializable {
      */
     private String backImage;
 
+    /**身份证有效期 */
+    private  String valid;
     /**
      * 等级
      */
@@ -365,6 +367,14 @@ public class User implements Serializable {
         this.realname = realname;
     }
 
+    public String getValid() {
+        return valid;
+    }
+
+    public void setValid(String valid) {
+        this.valid = valid;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -394,6 +404,7 @@ public class User implements Serializable {
                 "visitor='" + visitor + '\'' + ',' +
                 "address='" + address + '\'' + ',' +
                 "realname='" + realname + '\'' +
+                "valid='" + valid +
                 '}';
     }
 
@@ -403,6 +414,7 @@ public class User implements Serializable {
 
     public User(User model) {
         this.id = model.id;
+        this.valid = model.valid;
         this.userName = model.userName;
         this.password = model.password;
         this.slat = model.slat;

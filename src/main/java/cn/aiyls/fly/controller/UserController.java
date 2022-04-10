@@ -2,8 +2,11 @@ package cn.aiyls.fly.controller;
 
 import cn.aiyls.fly.aop.NoEmptyStr;
 import cn.aiyls.fly.entity.User;
+import cn.aiyls.fly.enums.ReturnCodes;
 import cn.aiyls.fly.service.TFlyCompanyService;
 import cn.aiyls.fly.service.UserService;
+import cn.aiyls.fly.utils.Result;
+import cn.aiyls.fly.utils.StringUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,7 +106,19 @@ public class UserController {
      */
     @PostMapping(value = "/addUserCardInfo")
     public Object addUserCard(@RequestBody JSONObject params) {
-        params.put("idcardAuth", 2);
+        if (StringUtil.isEmpty(params.getString("frontImage"))) {
+            return new Result<Object>(ReturnCodes.failed, "身份证正面照不能为空");
+        }
+        if (StringUtil.isEmpty(params.getString("backImage"))) {
+            return new Result<Object>(ReturnCodes.failed, "身份证反面照不能为空");
+        }
+        if (StringUtil.isEmpty(params.getString("realname"))) {
+            return new Result<Object>(ReturnCodes.failed, "真实姓名不能为空");
+        }
+        if (StringUtil.isEmpty(params.getString("idcard"))) {
+            return new Result<Object>(ReturnCodes.failed, "身份证号码不能为空");
+        }
+        params.put("idcardAuth", 1);
         return userService.update(params);
     }
 

@@ -3,6 +3,7 @@ package cn.aiyls.fly.service;
 import cn.aiyls.fly.entity.TFlyVisitor;
 import cn.aiyls.fly.enums.ReturnCodes;
 import cn.aiyls.fly.mapper.TFlyVisitorMapper;
+import cn.aiyls.fly.utils.JwtUtils;
 import cn.aiyls.fly.utils.Result;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,6 +29,8 @@ public class TFlyVisitorService {
         this.visitorMapper = visitorMapper;
     }
 
+    @Resource
+    HttpServletRequest request;
     /**
      * 新增
      */
@@ -66,7 +71,8 @@ public class TFlyVisitorService {
     public Object selectAll(JSONObject params) {
         IPage<TFlyVisitor> page = new Page<>(params.getInteger("pageNum"), params.getInteger("pageSize"));
         QueryWrapper<TFlyVisitor> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(TFlyVisitor::getUserId, params.getInteger("userId"));
+        Long currentUserId = JwtUtils.getUserId(request);
+        queryWrapper.lambda().eq(TFlyVisitor::getUserId, currentUserId);
         queryWrapper.lambda().eq(TFlyVisitor::getStatus, 1);
         IPage<TFlyVisitor> pageLst = visitorMapper.selectPage(page, queryWrapper);
         return new Result<Object>(ReturnCodes.success, pageLst);

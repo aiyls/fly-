@@ -1,12 +1,14 @@
 package cn.aiyls.fly.service;
 
 import cn.aiyls.fly.constant.Constant;
-import cn.aiyls.fly.entity.TFlyFeedback;
+import cn.aiyls.fly.entity.TFlyCompany;
 import cn.aiyls.fly.entity.TFlyUserLikeDynamic;
+import cn.aiyls.fly.entity.TFlyVisitor;
 import cn.aiyls.fly.entity.User;
 import cn.aiyls.fly.enums.ReturnCodes;
 import cn.aiyls.fly.enums.UserEnums;
 import cn.aiyls.fly.mapper.TFlyUserLikeDynamicMapper;
+import cn.aiyls.fly.mapper.TFlyVisitorMapper;
 import cn.aiyls.fly.mapper.UserMapper;
 import cn.aiyls.fly.redis.RedisUtil;
 import cn.aiyls.fly.utils.*;
@@ -22,14 +24,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Map;
 
 /**
@@ -45,14 +47,16 @@ public class UserService {
 
     private final UserMapper userMapper;
     private final TFlyUserLikeDynamicMapper userLikeDynamicMapper;
+    private final TFlyVisitorMapper visitorMapper;
     private final RedisUtil redisUtil;
     @Resource
     HttpServletRequest request;
     @Autowired
-    public UserService(UserMapper userMapper, RedisUtil redisUtil, TFlyUserLikeDynamicMapper userLikeDynamicMapper) {
+    public UserService(UserMapper userMapper, RedisUtil redisUtil, TFlyUserLikeDynamicMapper userLikeDynamicMapper, TFlyVisitorMapper visitorMapper) {
         this.userMapper = userMapper;
         this.redisUtil = redisUtil;
         this.userLikeDynamicMapper = userLikeDynamicMapper;
+        this.visitorMapper = visitorMapper;
     }
 
 
@@ -192,6 +196,30 @@ public class UserService {
         queryWrapper.lambda().eq(User::getId, userId);
         User userinfo = userMapper.selectOne(queryWrapper);
         userinfo.setPassword("");
+        Long currentUserId = JwtUtils.getUserId(request);
+        if ( 0 != id && currentUserId != userinfo.getId()) {
+            // 查询今天是否已经访问了，如果已经访问了就不添加记录了，直跟新一下时间
+            QueryWrapper<TFlyVisitor> visitorQueryWrapper = new QueryWrapper<>();
+            visitorQueryWrapper.lambda().eq(TFlyVisitor::getStatus, 1);
+            visitorQueryWrapper.lambda().eq(TFlyVisitor::getUserId, userinfo.getId());
+            visitorQueryWrapper.lambda().ge(TFlyVisitor::getCreateTime, LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0)));
+            TFlyVisitor currentVisitor = visitorMapper.selectOne(visitorQueryWrapper);
+            if (currentVisitor != null) {
+                currentVisitor.setCreateTime(LocalDateTime.now());
+                visitorMapper.updateById(currentVisitor);
+            } else {
+                // 别人查询他自己的主页
+                TFlyVisitor visitor = new TFlyVisitor();
+                visitor.setIcon(userinfo.getIcon());
+                visitor.setUsername(StringUtil.isNotEmpty(userinfo.getNickname()) ? userinfo.getNickname() : userinfo.getUserName());
+                visitor.setUserId(userinfo.getId());
+                visitor.setUserToId(currentUserId);
+                visitor.setStatus(1);
+                visitor.setCreateTime(LocalDateTime.now());
+                visitorMapper.insert(visitor);
+            }
+
+        }
         if (userinfo == null) {
             return new Result<Object>(ReturnCodes.failed, "没有数据");
         }

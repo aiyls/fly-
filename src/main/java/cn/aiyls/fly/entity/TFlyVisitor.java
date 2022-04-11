@@ -45,11 +45,7 @@ public class TFlyVisitor  implements Serializable {
    	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime createTime;
 
-	/**
-	 * 创建时间的年月日
-	 */
-   	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime createDate;
+   	private Long userToId;
 
    	private Integer status;
 
@@ -93,13 +89,6 @@ public class TFlyVisitor  implements Serializable {
 		this.createTime = createTime;
 	}
 
-	public LocalDateTime getCreateDate() {
-		return this.createDate;
-	}
-
-	public void setCreateDate(LocalDateTime createDate) {
-		this.createDate = createDate;
-	}
 
 	public Integer getStatus() {
 		return status;
@@ -107,6 +96,14 @@ public class TFlyVisitor  implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Long getUserToId() {
+		return userToId;
+	}
+
+	public void setUserToId(Long userToId) {
+		this.userToId = userToId;
 	}
 
 	@Override
@@ -117,7 +114,7 @@ public class TFlyVisitor  implements Serializable {
 					"username='" + username + '\'' +
 					"userId='" + userId + '\'' +
 					"createTime='" + createTime + '\'' +
-					"createDate='" + createDate + '\'' +
+					"userToId='" + userToId + '\'' +
 				'}';
 	}
 
@@ -129,8 +126,8 @@ public class TFlyVisitor  implements Serializable {
 		this.username = model.username;
 		this.userId = model.userId;
 		this.createTime = model.createTime;
-		this.createDate = model.createDate;
 		this.status = model.status;
+		this.userToId = model.userToId;
 	}
 
 }

@@ -1,13 +1,12 @@
 package cn.aiyls.fly.controller;
 
 import cn.aiyls.fly.aop.NoEmptyStr;
-import cn.aiyls.fly.entity.User;
 import cn.aiyls.fly.enums.ReturnCodes;
 import cn.aiyls.fly.service.TFlyCompanyService;
+import cn.aiyls.fly.service.TFlyVisitorService;
 import cn.aiyls.fly.service.UserService;
 import cn.aiyls.fly.utils.Result;
 import cn.aiyls.fly.utils.StringUtil;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +24,13 @@ public class UserController {
 
     private final TFlyCompanyService companyService;
 
+    private final TFlyVisitorService visitorService;
+
     @Autowired
-    public UserController(UserService userService, TFlyCompanyService companyService) {
+    public UserController(UserService userService, TFlyCompanyService companyService, TFlyVisitorService visitorService) {
         this.userService = userService;
         this.companyService = companyService;
+        this.visitorService = visitorService;
     }
 
     @GetMapping("/getPublicKey")
@@ -126,8 +128,16 @@ public class UserController {
      * 设置个人身份证认证是否通过
      */
     @PostMapping(value = "/updateUserCardStatus")
-    public Object updateUserCardStatus(@RequestBody JSONObject params) {
-        params.put("idcardAuth", params.getInteger("status"));
-        return userService.update(params);
+    public Object updateUserCardStatus(@RequestBody JSONObject datas) {
+        datas.put("idcardAuth", datas.getInteger("status"));
+        return userService.update(datas);
+    }
+
+    /**
+     * 查询访客
+     */
+    @GetMapping(value = "/selectVisitor")
+    public Object selectVisitor(@RequestBody JSONObject params) {
+        return visitorService.selectAll(params);
     }
 }
